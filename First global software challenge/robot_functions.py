@@ -9,7 +9,7 @@ from ev3dev2.sensor.virtual import *
 from ev3dev2.sound import Sound
 
 from robot_variables import *
-from square import *
+from class_square import *
 
 # Create the sensors and motors objects
 motorA = LargeMotor(OUTPUT_A)
