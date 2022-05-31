@@ -20,7 +20,7 @@ class Square:
         print(self.x, self.y)
         return self.x, self.y
 
-    def write_possible_moves(self, angle, up, left, right, back):
+    def write_possible_moves(self, angle, up, left, right, down):
         if angle_down_uncertainty < angle < angle_up_uncertainty:
             self.true_up = up
             self.true_left = left

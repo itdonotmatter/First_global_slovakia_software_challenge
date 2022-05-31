@@ -42,12 +42,20 @@ motorC = LargeMotor(OUTPUT_C)  # Magnet
 # nice would also be a function which allowes me to just input the distance i want to travel converts it into
 # degrees and just moves that distance
 def initial_position():
+
     speed = -20
     while ultrasonic_sensor_in2.distance_centimeters < middle_sens_to_w:
         tank_drive.on(speed, speed)
     else:
         tank_drive.off(brake=True)
-
+    while gyro_sensor_in5.angle != 0:
+        speed = 1
+        if gyro_sensor_in5.angle > 0:
+            tank_drive.on(-speed,speed)
+        if gyro_sensor_in5.angle < 0:
+            tank_drive.on(speed,-speed)
+    else:
+        tank_drive.off(brake=True)
 
 # creates grip upon which will the robot move
 def createsquares():
@@ -80,8 +88,13 @@ def createsquares():
 # scan for possible moves
 def scan():
     # variables
+    up = False
+    down = True
+    left = False
+    right = False
     red = color_sensor_in1.rgb[0]
     blue = color_sensor_in1.rgb[2]
+    gyro_angle = gyro_sensor_in5.angle
     middle_sensor = ultrasonic_sensor_in2.distance_centimeters
     left_sensor = ultrasonic_sensor_in3.distance_centimeters
     right_sensor = ultrasonic_sensor_in4.distance_centimeters
@@ -96,17 +109,18 @@ def scan():
         info_square[current_square].is_clean(True)
 
     # check for additional possible paths
-    if middle_sens_to_w * var_down < middle_sensor < middle_sens_to_w * var_up:
+
+    if middle_sensor > middle_sens_to_w * var_up:
         up = True
-    if left_sens_to_w * var_down < left_sensor < left_sens_to_w * var_up:
+    if left_sensor > left_sens_to_w * var_up:
         left = True
-    if right_sens_to_w * var_down < right_sensor < right_sens_to_w * var_up:
+    if right_sensor > right_sens_to_w * var_up:
         right = True
+    info_square[current_square].write_possible_moves(angle=gyro_angle ,up= up,left= left,right= right,down= down)
 
 
 
 
-    info_square[current_square].grid_location()
 
 
     # function to move from set square into another square upfront, back
