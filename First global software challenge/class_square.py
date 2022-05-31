@@ -1,4 +1,5 @@
 # creating class for each individual square
+from robot_variables import var_up, var_down, angle_down_uncertainty,angle_up_uncertainty
 class Square:
 
     def __init__(self, location_x, location_y):
@@ -19,11 +20,20 @@ class Square:
         print(self.x, self.y)
         return self.x, self.y
 
-    def write_possible_moves(self, robot_angle, up, down, left, right):
-        self.true_up = up
-        self.true_down = down
-        self.true_left = left
-        self.true_right = right
+    def write_possible_moves(self, angle, up, left, right, back):
+        if angle_down_uncertainty < angle < angle_up_uncertainty:
+            self.true_up = up
+            self.true_left = left
+            self.true_right = right
+
+
+
+    def check_if_clean(self):
+        return self.clean
+
+    def is_clean(self, clean):
+        self.clean = clean
+        print(f"is clean: {self.clean}, grid: {self.x} {self.y}")
 
     def read_possible_moves(self):
         return self.true_up, self.true_down, self.true_left, self.true_right

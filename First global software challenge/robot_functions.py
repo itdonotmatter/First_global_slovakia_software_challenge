@@ -86,18 +86,28 @@ def scan():
     left_sensor = ultrasonic_sensor_in3.distance_centimeters
     right_sensor = ultrasonic_sensor_in4.distance_centimeters
 
-    # check for additional possible paths
-    if middle_sensor:
-        pass
-
     # checks whether bot is standing above a puck
     if red == 255:
         return_red_puck()
     elif blue == 255:
         return_blue_puck()
+    else:
+        print("not standing on blue neither red")
+        info_square[current_square].is_clean(True)
 
-    print(info_square[0].grid_location())
-    print(info_square[0].write_possible_moves())
+    # check for additional possible paths
+    if middle_sens_to_w * var_down < middle_sensor < middle_sens_to_w * var_up:
+        up = True
+    if left_sens_to_w * var_down < left_sensor < left_sens_to_w * var_up:
+        left = True
+    if right_sens_to_w * var_down < right_sensor < right_sens_to_w * var_up:
+        right = True
+
+
+
+
+    info_square[current_square].grid_location()
+
 
     # function to move from set square into another square upfront, back
 
