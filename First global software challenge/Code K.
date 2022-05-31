@@ -1,0 +1,60 @@
+Rychlost = None
+Speed = None
+Angle = None
+Uhol = None
+
+# Describe this function...
+def Rotation(Speed, Angle):
+    global Rychlost, Uhol
+    gyro_sensor_in5.reset()
+    while True:
+        if gyro_sensor_in5.angle == Angle:
+            tank_drive.off(brake=True)
+            time.sleep(0.5)
+            Speed = 3
+            if gyro_sensor_in5.angle == Angle:
+                break
+        elif gyro_sensor_in5.angle < Angle:
+            tank_drive.on(Speed, (Speed * -1))
+        else:
+            tank_drive.on((Speed * -1), Speed)
+
+# Describe this function...
+def Run(Rychlost, Uhol):
+    global Speed, Angle
+    Rotation(15, Uhol)
+    tank_drive.on(Rychlost, Rychlost)
+    while not ultrasonic_sensor_in2.distance_centimeters < 20:
+        pass
+    tank_drive.off(brake=True)
+
+
+Rotation(15, 90)
+tank_drive.on(30, 30)
+while not ultrasonic_sensor_in2.distance_centimeters < 20:
+    pass
+tank_drive.off(brake=True)
+Run(30, -90)
+Run(30, -90)
+left_motor.position = 0
+right_motor.position = 0
+tank_drive.on((-10), (-10))
+Run(30, 90)
+Run(30, 90)
+Run(30, -90)
+Run(30, 90)
+Run(30, 90)
+Run(30, -90)
+Run(30, -90)
+Run(30, 90)
+Run(30, -90)
+Run(30, -90)
+Run(30, 90)
+Run(30, 90)
+Run(30, -90)
+Run(30, -90)
+Run(30, 90)
+Run(30, 90)
+Run(30, 90)
+Run(30, 90)
+Run(30, 90)
