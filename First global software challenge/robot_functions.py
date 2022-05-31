@@ -39,8 +39,8 @@ gyro_sensor_in5 = GyroSensor(INPUT_5)
 motorC = LargeMotor(OUTPUT_C)  # Magnet
 
 
-# nice would also be a function which allowes me to just input the distance i want to travel converts it into
-# degrees and just moves that distance
+
+
 def initial_position():
 
     speed = -20
@@ -92,9 +92,12 @@ def scan():
     down = True
     left = False
     right = False
+    # reading from color sensor
     red = color_sensor_in1.rgb[0]
     blue = color_sensor_in1.rgb[2]
+    # reading from gyro sensor
     gyro_angle = gyro_sensor_in5.angle
+    # reading
     middle_sensor = ultrasonic_sensor_in2.distance_centimeters
     left_sensor = ultrasonic_sensor_in3.distance_centimeters
     right_sensor = ultrasonic_sensor_in4.distance_centimeters
@@ -116,6 +119,7 @@ def scan():
         left = True
     if right_sensor > right_sens_to_w * var_up:
         right = True
+    #
     info_square[current_square].write_possible_moves(angle=gyro_angle ,up= up,left= left,right= right,down= down)
 
 
