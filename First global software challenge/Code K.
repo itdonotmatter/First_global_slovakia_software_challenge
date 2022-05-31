@@ -36,9 +36,6 @@ while not ultrasonic_sensor_in2.distance_centimeters < 20:
 tank_drive.off(brake=True)
 Run(30, -90)
 Run(30, -90)
-left_motor.position = 0
-right_motor.position = 0
-tank_drive.on((-10), (-10))
 Run(30, 90)
 Run(30, 90)
 Run(30, -90)
